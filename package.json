@@ -1,0 +1,37 @@
+{
+  "name": "react-calendar",
+  "version": "0.0.0",
+  "description": "Primitives for building calendars in React",
+  "main": "dist/react-calendar.umd.js",
+  "jsnext:main": "src/index.js",
+  "module": "src/index.js",
+  "repository": "https://github.com/imranolas/react-calendar.git",
+  "bugs": {
+    "url": "https://github.com/imranolas/react-calendar/issues"
+  },
+  "homepage": "https://github.com/imranolas/react-calendar#readme",
+  "author": "Imran Sulemanji <imran.sulemanji@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^3.2.16",
+    "@storybook/addon-links": "^3.2.16",
+    "@storybook/react": "^3.2.16",
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.0"
+  },
+  "scripts": {
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  }
+}
