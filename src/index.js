@@ -24,14 +24,16 @@ type Section = {
 
 type Props = {
   renderItem: (item: Item) => React$Element<*>,
-  renderSection: (section: Section) => React$Element<*>,
-  sectionBy: (date: Date) => any,
+  renderSection?: (section: Section) => React$Element<*>,
+  sectionBy?: (date: Date) => any,
   range: Period,
   interval: Period,
-  pad: Period
+  pad?: Period
 };
 
 class Calendar extends React.Component<Props> {
+  props: Props;
+
   getPaddedDateRange = (): Range => {
     const { range, pad } = this.props;
     const now = new Date();
@@ -57,6 +59,7 @@ class Calendar extends React.Component<Props> {
 
   getSections = (dates: Array<Date>): Map<*, Array<Date>> => {
     const sectionFn = this.props.sectionBy;
+    if (!sectionFn) return new Map();
     return dates.reduce((dateMap, date) => {
       const key = sectionFn(date);
       return dateMap.set(key, [...(dateMap.get(key) || []), date]);
@@ -78,9 +81,11 @@ class Calendar extends React.Component<Props> {
 
   renderSections = (sections: Map<*, Array<Date>>) => {
     const sectionsEl = [];
+    const { renderSection } = this.props;
+    if (!renderSection) return sectionsEl;
     for (const [key, values] of sections.entries()) {
       const children = values.map(date => this.renderDate(date));
-      sectionsEl.push(this.props.renderSection({ key, values, children }));
+      sectionsEl.push(renderSection({ key, values, children }));
     }
     return sectionsEl;
   };
