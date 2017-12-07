@@ -2,15 +2,18 @@
 import React from "react";
 
 import isBefore from "date-fns/is_before";
-import isAfter from "date-fns/is_after";
 
 import { type Period } from "./types";
-import { startOf, endOf, add } from "./utils";
+import { startOf, endOf, add, same } from "./utils";
 
 type Range = [Date, Date];
 
 type Item = {
-  date: Date
+  date: Date,
+  startOfInterval: Date,
+  endOfInterval: Date,
+  duration: number,
+  withinPeriod: boolean
 };
 
 type Section = {
@@ -29,10 +32,16 @@ type Props = {
 };
 
 class Calendar extends React.Component<Props> {
-  getDateRange = (): Range => {
+  getPaddedDateRange = (): Range => {
     const { range, pad } = this.props;
     const now = new Date();
     return [startOf(range, pad)(now), endOf(range, pad)(now)];
+  };
+
+  getDateRange = (): Range => {
+    const { range, pad } = this.props;
+    const now = new Date();
+    return [startOf(range)(now), endOf(range)(now)];
   };
 
   getDates = ([start, end]: Range) => {
@@ -54,22 +63,23 @@ class Calendar extends React.Component<Props> {
     }, new Map());
   };
 
-  renderDate = (date: Date, [start, end]: Range) => {
-    const { interval, renderItem, pad } = this.props;
+  renderDate = (date: Date) => {
+    const { interval, renderItem, pad, range } = this.props;
+    const [start] = this.getDateRange();
     const endOfInterval = endOf(interval)(date);
     return renderItem({
       date,
       startOfInterval: date,
       endOfInterval,
       duration: endOfInterval - date,
-      withinPeriod: pad ? isBefore(date, end) && isAfter(date, start) : true
+      withinPeriod: pad ? same(range)(date, start) : true
     });
   };
 
-  renderSections = (sections: Map<*, Array<Date>>, range: Range) => {
+  renderSections = (sections: Map<*, Array<Date>>) => {
     const sectionsEl = [];
     for (const [key, values] of sections.entries()) {
-      const children = values.map(date => this.renderDate(date, range));
+      const children = values.map(date => this.renderDate(date));
       sectionsEl.push(this.props.renderSection({ key, values, children }));
     }
     return sectionsEl;
@@ -78,14 +88,14 @@ class Calendar extends React.Component<Props> {
   hasSections = () => !!(this.props.sectionBy && this.props.renderSection);
 
   render() {
-    const range = this.getDateRange();
+    const range = this.getPaddedDateRange();
     const dates = this.getDates(range);
     if (!this.hasSections()) {
-      return dates.map(date => this.props.renderItem({ date }));
+      return dates.map(date => this.renderDate(date));
     }
 
     const sections = this.getSections(dates);
-    const sectionEls = this.renderSections(sections, range);
+    const sectionEls = this.renderSections(sections);
     return sectionEls;
   }
 }

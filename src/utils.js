@@ -32,6 +32,16 @@ import addWeek from "date-fns/add_weeks";
 import addQuarter from "date-fns/add_quarters";
 import addYear from "date-fns/add_years";
 
+// add*
+import sameSecond from "date-fns/is_same_second";
+import sameMinute from "date-fns/is_same_minute";
+import sameHour from "date-fns/is_same_hour";
+import sameDay from "date-fns/is_same_day";
+import sameMonth from "date-fns/is_same_month";
+import sameWeek from "date-fns/is_same_week";
+import sameQuarter from "date-fns/is_same_quarter";
+import sameYear from "date-fns/is_same_year";
+
 type OfPeriod = {
   [period: Period]: (date: Date, ...args: Array<*>) => Date
 };
@@ -69,6 +79,17 @@ const addMap: OfPeriod = {
   year: addYear
 };
 
+const sameMap: { [period: Period]: Function } = {
+  second: sameSecond,
+  minute: sameMinute,
+  hour: sameHour,
+  day: sameDay,
+  month: sameMonth,
+  week: sameWeek,
+  quarter: sameQuarter,
+  year: sameYear
+};
+
 export function startOf(period: Period, pad: ?Period) {
   return (date: Date) => {
     if (!pad) {
@@ -89,4 +110,10 @@ export function endOf(period: Period, pad: ?Period) {
 
 export function add(interval: Period) {
   return (date: Date) => addMap[interval](date, 1);
+}
+
+export function same(period: Period) {
+  return (d1: Date, d2: Date): boolean => {
+    return sameMap[period](d1, d2);
+  };
 }
