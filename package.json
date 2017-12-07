@@ -31,7 +31,8 @@
     "flow-bin": "^0.60.1",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "styled-components": "^2.2.4"
   },
   "scripts": {
     "storybook": "start-storybook -p 6006",
