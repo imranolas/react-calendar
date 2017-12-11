@@ -14,6 +14,8 @@ behaves a lot like a React Native ListView.
 
 ## Usage
 
+`yarn add react-calendar-listview`
+
 ```jsx
 <Calendar
   range="month"
