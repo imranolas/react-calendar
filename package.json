@@ -1,6 +1,6 @@
 {
   "name": "react-calendar-listview",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Primitives for building calendars in React",
   "main": "dist/react-calendar.umd.js",
   "jsnext:main": "src/index.js",
