@@ -29,7 +29,7 @@ const plugins = [
   }),
   babel({
     exclude: 'node_modules/**',
-    externalHelpers: true
+    externalHelpers: false
   }),
   flow({
     all: true,
