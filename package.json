@@ -2,9 +2,9 @@
   "name": "react-calendar-listview",
   "version": "0.1.0",
   "description": "Primitives for building calendars in React",
-  "main": "dist/react-calendar.umd.js",
-  "jsnext:main": "src/index.js",
-  "module": "src/index.js",
+  "main": "dist/react-calendar.cjs.js",
+  "jsnext:main": "dist/react-calendar.es.js",
+  "module": "dist/react-calendar.es.js",
   "repository": "https://github.com/imranolas/react-calendar.git",
   "bugs": {
     "url": "https://github.com/imranolas/react-calendar/issues"
@@ -13,11 +13,9 @@
   "author": "Imran Sulemanji <imran.sulemanji@gmail.com>",
   "license": "MIT",
   "private": false,
-  "dependencies": {
+  "peerDependencies": {
     "date-fns": "^1.29.0",
-    "prop-types": "^15.6.0"
-  },
-  "peerDependecies": {
+    "prop-types": "^15.6.0",
     "react": "^16.2.0"
   },
   "devDependencies": {
@@ -30,12 +28,19 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "date-fns": "^1.29.0",
     "flow-bin": "^0.60.1",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "rollup": "^0.54.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-es3": "^1.1.0",
+    "rollup-plugin-filesize": "^1.5.0",
+    "rollup-plugin-flow": "^1.1.1",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify-es": "^0.0.1",
     "styled-components": "^2.2.4"
   },
   "scripts": {
