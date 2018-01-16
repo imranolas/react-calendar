@@ -2,9 +2,9 @@
   "name": "react-calendar-listview",
   "version": "0.1.0",
   "description": "Primitives for building calendars in React",
-  "main": "dist/react-calendar.umd.js",
-  "jsnext:main": "src/index.js",
-  "module": "src/index.js",
+  "main": "dist/react-calendar.cjs.js",
+  "jsnext:main": "dist/react-calendar.es.js",
+  "module": "dist/react-calendar.es.js",
   "repository": "https://github.com/imranolas/react-calendar.git",
   "bugs": {
     "url": "https://github.com/imranolas/react-calendar/issues"
@@ -13,7 +13,6 @@
   "author": "Imran Sulemanji <imran.sulemanji@gmail.com>",
   "license": "MIT",
   "private": false,
-  "dependencies": {},
   "peerDependencies": {
     "date-fns": "^1.29.0",
     "prop-types": "^15.6.0",

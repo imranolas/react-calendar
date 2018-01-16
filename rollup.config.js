@@ -46,32 +46,40 @@ const prodPlugins = [
 
 const name = 'ReactCalendar';
 
-const withBase = config => ({
-  ...config,
-  input: 'src/index.js',
-  external,
-});
-
-const umdBase = {
-  name,
-  exports: 'named',
-  globals
+const externalFn = id => {
+  const [first] = id.split('/');
+  return external.includes(first);
 };
+
+const withBase = config => ({
+  external: externalFn,
+  ...config,
+  output: config.output.map(x => ({
+    ...x,
+    name,
+    globals,
+    exports: 'named'
+  })),
+  input: 'src/index.js'
+});
 
 export default [
   {
     output: [{
       file: './dist/react-calendar.min.js',
-      format: 'umd',
-      ...umdBase
+      format: 'umd'
     }],
+    external, // For UMDs, nested imports must be bundled
     plugins: prodPlugins
   }, {
     output: [{
       file: './dist/react-calendar.js',
       format: 'umd',
-      ...umdBase
-    }, {
+    }],
+    external, // For UMDs, nested imports must be bundled
+    plugins
+  }, {
+    output: [{
       file: './dist/react-calendar.es.js',
       format: 'es'
     }, {
