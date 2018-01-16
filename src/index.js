@@ -23,6 +23,7 @@ type Section = {
 };
 
 type Props = {
+  activeRange?: Date,
   renderItem: (item: Item) => React$Element<*>,
   renderSection?: (section: Section) => React$Element<*>,
   sectionBy?: (date: Date) => any,
@@ -35,14 +36,14 @@ class Calendar extends React.Component<Props> {
   props: Props;
 
   getPaddedDateRange = (): Range => {
-    const { range, pad } = this.props;
-    const now = new Date();
+    const { range, pad, activeRange } = this.props;
+    const now = activeRange || new Date();
     return [startOf(range, pad)(now), endOf(range, pad)(now)];
   };
 
   getDateRange = (): Range => {
-    const { range, pad } = this.props;
-    const now = new Date();
+    const { range, pad, activeRange } = this.props;
+    const now = activeRange || new Date();
     return [startOf(range)(now), endOf(range)(now)];
   };
 
@@ -66,12 +67,13 @@ class Calendar extends React.Component<Props> {
     }, new Map());
   };
 
-  renderDate = (date: Date) => {
+  renderDate = (date: Date, index: number) => {
     const { interval, renderItem, pad, range } = this.props;
     const [start] = this.getDateRange();
     const endOfInterval = endOf(interval)(date);
     return renderItem({
       date,
+      index,
       startOfInterval: date,
       endOfInterval,
       duration: endOfInterval - date,
@@ -84,7 +86,7 @@ class Calendar extends React.Component<Props> {
     const { renderSection } = this.props;
     if (!renderSection) return sectionsEl;
     for (const [key, values] of sections.entries()) {
-      const children = values.map(date => this.renderDate(date));
+      const children = values.map(this.renderDate);
       sectionsEl.push(renderSection({ key, values, children }));
     }
     return sectionsEl;
@@ -96,7 +98,7 @@ class Calendar extends React.Component<Props> {
     const range = this.getPaddedDateRange();
     const dates = this.getDates(range);
     if (!this.hasSections()) {
-      return dates.map(date => this.renderDate(date));
+      return dates.map(this.renderDate);
     }
 
     const sections = this.getSections(dates);
