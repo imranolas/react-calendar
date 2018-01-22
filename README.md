@@ -37,6 +37,7 @@ behaves a lot like a React Native ListView.
 
 | Props              | Description                                                                                                                            |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| `activeRange`      | A `Date` within the active range |
 | `range`            | The range of dates in the sequence                                                                                                     |
 | `interval`         | The interval between each date in the sequence                                                                                         |
 | `pad` _(optional)_ | The padding applied to the range. Useful when rendering a month of dates padded to the start and end of the week                       |
